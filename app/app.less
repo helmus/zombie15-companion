@@ -1,0 +1,41 @@
+body {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+@rasterSize: 60px;
+
+.rasterContainer {
+  display: inline-block;
+}
+
+.column {
+  width: @rasterSize;
+  height: @rasterSize;
+  border: 1px solid #000000;
+  display: inline-block;
+  text-align: center;
+}
+
+.row {
+  cursor: pointer;
+  height: @rasterSize;
+}
+
+.legend {
+  vertical-align: top;
+  display: inline-block;
+  width: 150px;
+  height: @rasterSize * 6;
+  border: 1px solid black;
+}
+
+.tile {
+  padding-top: 12px;
+  margin: 10px;
+  height: 50px;
+  border: 1px solid black;
+  font-size: 35px;
+  text-align: center;
+  font-weight: bolder;
+}
