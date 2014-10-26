@@ -1,0 +1,71 @@
+@tileSize: 100%;
+@tileSizeHalf : @tileSize / 2;
+@tileBorder : 25%;
+@tileBorderHalf : @tileBorder / 2;
+@roadColor: red;
+
+.rotation {
+  border: 1px solid black;
+  height: @tileSize;
+  width: @tileSize;
+  position: relative;
+  box-sizing: border-box;
+
+  .street0 {
+    position: absolute;
+    width: @tileBorder;
+    height: @tileSizeHalf;
+    left: @tileSizeHalf - @tileBorderHalf;
+    top: @tileSizeHalf;
+  }
+  .street1 {
+    position: absolute;
+    width: @tileSizeHalf;
+    height: @tileBorder;
+    right: @tileSizeHalf;
+    top: @tileSizeHalf - @tileBorderHalf;
+  }
+  .street2 {
+    position: absolute;
+    width: @tileBorder;
+    height: @tileSizeHalf + 3%;
+    left: @tileSizeHalf - @tileBorderHalf;
+  }
+  .street3 {
+    position: absolute;
+    width: @tileSizeHalf;
+    height: @tileBorder;
+    left: @tileSizeHalf;
+    top: @tileSizeHalf - @tileBorderHalf;
+  }
+
+  .activeRoad {
+    background-color: @roadColor;
+  }
+
+  .handle {
+    cursor: pointer;
+    &.edit:hover {
+      background-color: rgba(255, 0, 0, 0.30);
+    }
+    .road {
+      transition: background-color 0.2s;
+    }
+    &:nth-child(odd) {
+      .road {
+        width: 5px;
+        height: 100%;
+        margin: 0 auto;
+      }
+    }
+    &:nth-child(even) {
+      .road {
+        width: 100%;
+        height: 5px;
+        vertical-align: middle;
+        display: inline-block;
+        margin-top: 5px
+      }
+    }
+  }
+}
