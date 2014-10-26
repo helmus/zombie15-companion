@@ -11,14 +11,14 @@
 
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
-
 </head>
 <body ng-cloak ng-app="myApp">
 <div ng-controller="MainCtrl">
     <div class="rasterContainer">
         <div class="row" ng-repeat="row in rows track by $index">
-            <div class="column" ng-repeat="column in columns track by $index">
-                <tile class="rasterTile" roads="column" active-tile='activeTileRoads'></tile>
+            <div class="column" ng-repeat="tile in row track by $index">
+                <tile ng-click="registerTile(tile.row, tile.column)" class="rasterTile" roads="tile.roads"
+                      active-tile='activeTileRoads'></tile>
             </div>
         </div>
     </div>

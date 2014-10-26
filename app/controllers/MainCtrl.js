@@ -3,8 +3,15 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles) {
 
   var tilesById = _.indexBy(tiles, 'id');
 
-  $scope.rows = _.range(0, 6);
-  $scope.columns = _.range(0, 9);
+  $scope.rows = _.range(0, 6).map(function (row) {
+    return _.range(0, 9).map(function (column) {
+      return {
+        row   : row,
+        column: column,
+        roads : null
+      };
+    });
+  });
 
   $scope.activeTileRoads = [];
   $scope.updatePreview = function () {
@@ -45,4 +52,9 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles) {
     $scope.activeTile = '';
     $('.text').focus();
   };
+
+  $scope.registerTile = function (column, row) {
+    console.log(column, row);
+  };
+
 });

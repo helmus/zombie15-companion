@@ -16,12 +16,21 @@ angular.module('myApp').directive('tile', function () {
           return !!a;
         });
       }
-      $scope.rotate =  function () {
-        if ($scope.roads.length) {
-            $scope.orientation = $scope.orientation + 1 % 4;
+      $scope.rotate = function () {
+        if ($scope.activeTile.indexOf(true) == -1) {
+          $scope.roads = [];
+          return
+        }
+        if ($scope.roads && $scope.roads.length) {
+          if ($scope.roads.indexOf(true) == -1) {
+            $scope.roads = $scope.activeTile.slice();
+            $scope.orientation = 0;
             return;
           }
-          $scope.roads = $scope.activeTile.slice();
+          $scope.orientation = $scope.orientation + 1 % 4;
+          return;
+        }
+        $scope.roads = $scope.activeTile.slice();
       };
     }
   };
