@@ -6,12 +6,13 @@ body {
 }
 
 @rasterSize: 60px;
+@borderColor : rgb(129, 130, 184);
 
 .rasterContainer {
   display: inline-block;
   overflow: hidden;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
+  border-bottom: 1px solid @borderColor;
+  border-right: 1px solid @borderColor;
 }
 
 .column {
@@ -32,7 +33,7 @@ body {
   display: inline-block;
   width: 150px;
   height: @rasterSize * 6 + 1;
-  border: 1px solid black;
+  border: 1px solid @borderColor;
   box-sizing: border-box
 }
 

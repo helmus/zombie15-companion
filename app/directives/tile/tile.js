@@ -18,11 +18,14 @@ angular.module('myApp').directive('tile', function () {
           });
       }
       $scope.toggleTile = function () {
-        if ($scope.activeTile !== $scope.tile && !$scope.activeTile || !$scope.tile) {
+        if ($scope.activeTile !== $scope.tile && (!$scope.activeTile || !$scope.tile)) {
           $scope.tile = $scope.activeTile;
           return;
         }
-        $scope.tile.rotation = $scope.tile.rotation ? ($scope.tile.rotation + 1) % 4 : 1;
+        if ($scope.tile) {
+          $scope.tile.rotation = $scope.tile.rotation ? ($scope.tile.rotation + 1) % 4 : 1;
+
+        }
       };
     }
   };

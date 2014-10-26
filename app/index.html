@@ -26,21 +26,19 @@
         <input ng-change="updatePreview()"
                ng-model="activeTileId"
                maxlength="3" type="text" class="tileInput"/>
-        <tile tile="activeTile" class="previewTile"></tile>
-        <select class="scenario" ng-change="loadScenario()"
-                place
+        <tile tile="activeTile" rotate-only class="previewTile"></tile>
+        <select class="scenario"
                 ng-model="selectedScenario"
                 ng-options="scenario as 'Scenario ' + scenario.id for scenario in scenarios">
         </select>
+        <div style="margin: 0 auto; margin-top: 10px; width: 110px;">
+            <button class="button" style="display: inline-block" ng-click="saveScenario()"> Save</button>
+            <button class="button" style="display: inline-block" ng-click="newScenario()"> New</button>
+        </div>
     </div>
     <br>
     <br>
     <textarea ng-model="visualStateText" class="state"></textarea>
-
-    <div>
-        <button class="button" style="float:left;" ng-click="reload()"> R</button>
-        <button class="button" style="float:left;" ng-click="tiles.pop()"> P</button>
-    </div>
 </div>
 <script src="app.js"></script>
 <script src="controllers/MainCtrl.js"></script>

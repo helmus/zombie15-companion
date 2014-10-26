@@ -6,6 +6,23 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
   $scope.scenarios = scenarios;
   $scope.selectedScenario = scenarios[0];
 
+  $scope.$watch('selectedScenario', function () {
+    $scope.loadScenario();
+  });
+
+  $scope.newScenario = function () {
+    var newScenario = {id: $scope.scenarios.length + 1, tiles: []};
+    $scope.scenarios.push(newScenario);
+    $scope.selectedScenario = newScenario;
+  };
+
+  $scope.saveScenario = function () {
+    $scope.selectedScenario.tiles = _.cloneDeep(_.flatten($scope.rows).filter(function (tile) {
+      return tile.tile;
+    }));
+  };
+
+
   $scope.rows = _.range(0, 6).map(function (row) {
     return _.range(0, 9).map(function (column) {
       return {
@@ -17,6 +34,11 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
   });
 
   $scope.loadScenario = function () {
+    $scope.rows.forEach(function (row) {
+      row.forEach(function (rasterTile) {
+        rasterTile.tile = null;
+      });
+    });
     $scope.selectedScenario.tiles.forEach(function (scenarioTile) {
       $scope.rows[scenarioTile.row][scenarioTile.column].tile = scenarioTile.tile;
     });
@@ -84,7 +106,7 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
     });
   }
 
-  $scope.$watch('rows', function () {
+  $scope.$watch('scenarios', function () {
     $scope.visualState = _.flatten($scope.rows).filter(function (tile) {
       return tile.tile;
     });
