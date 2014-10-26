@@ -8,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bower_components/normalize.css/normalize.css">
     <link rel="stylesheet" href="app.css">
-    <script src="bower_components/angular/angular.js"></script>
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
 
 </head>
 <body ng-cloak ng-app="myApp">
@@ -16,12 +18,15 @@
     <div class="rasterContainer">
         <div class="row" ng-repeat="row in rows track by $index">
             <div class="column" ng-repeat="column in columns track by $index">
-                <tile class="rasterTile" roads="column" active-tile='activeTileRoads' ></tile>
+                <tile class="rasterTile" roads="column" active-tile='activeTileRoads'></tile>
             </div>
         </div>
     </div>
     <div class="legend">
-        <input ng-keyup="$event.keyCode == 13 && add()" ng-model="activeTile" maxlength="3" type="text" class="tile"/>
+        <input ng-keyup="$event.keyCode == 13 && add()"
+               ng-change="updatePreview()"
+               ng-model="activeTile"
+               maxlength="3" type="text" class="tileInput"/>
         <tile roads="activeTileRoads" orientation="0" class="previewTile"></tile>
         <button class="button addTile" ng-click="add()"> Add</button>
     </div>
@@ -34,8 +39,6 @@
         <button class="button" style="float:left;" ng-click="tiles.pop()"> P</button>
     </div>
 </div>
-
-<script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="app.js"></script>
 <script src="controllers/MainCtrl.js"></script>
 <script src="directives/tile/tile.js"></script>

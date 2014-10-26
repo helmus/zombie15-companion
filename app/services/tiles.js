@@ -5,7 +5,7 @@ angular.module('myApp').factory('tiles', function () {
     {
       "id"   : "1b",
       "roads": [
-        true,
+        false,
         true,
         false,
         true

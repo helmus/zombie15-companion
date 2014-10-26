@@ -7,7 +7,7 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles) {
   $scope.columns = _.range(0, 9);
 
   $scope.activeTileRoads = [];
-  $scope.$watch('activeTile', function () {
+  $scope.updatePreview = function () {
     if ($scope.activeTile && $scope.activeTile.length > 1) {
       var theTile = tilesById[$scope.activeTile];
       if (theTile) {
@@ -15,8 +15,8 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles) {
         return;
       }
     }
-    $scope.activeTileRoads = [false,false,false,false];
-  });
+    $scope.activeTileRoads = [false, false, false, false];
+  };
 
   $scope.tiles = [];
   $scope.$watch('tiles', function () {
@@ -28,7 +28,6 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles) {
       $scope.tilesJson = JSON.stringify($scope.tiles, null, 2);
     } catch (ex) {
       alert(ex);
-      return;
     }
   };
 

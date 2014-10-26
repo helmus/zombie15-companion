@@ -1,5 +1,8 @@
-<div ng-style="{transform: 'rotate(' + 90 * orientation  + 'deg)'}" class="rotation">
-    <div ng-class="{edit: edit}" ng-click="edit && (roads[$index]=!road)" ng-repeat="road in roads track by $index" class="street{{$index}} handle">
-        <div class="road" ng-class="{activeRoad:road}"></div>
+<div ng-click="rotate()" class="tile">
+    <div class="rotationDiv" ng-style="{transform: 'rotate(' + 90 * orientation  + 'deg)'} ">
+        <div ng-class="{edit: edit}" ng-click="edit && (roads[$index]=!road)" ng-repeat="road in roads track by $index"
+             class="street{{$index}} handle">
+            <div class="road" ng-class="{activeRoad:road}"></div>
+        </div>
     </div>
 </div>

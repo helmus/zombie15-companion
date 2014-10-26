@@ -9,17 +9,9 @@ body {
 
 .rasterContainer {
   display: inline-block;
-  .handle {
-    &:nth-child(even) {
-      .road {
-        width: 100%;
-        height: 5px;
-        vertical-align: middle;
-        display: inline-block;
-        margin-top: -5px
-      }
-    }
-  }
+  overflow: hidden;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
 }
 
 .column {
@@ -39,14 +31,14 @@ body {
   vertical-align: top;
   display: inline-block;
   width: 150px;
-  height: @rasterSize * 6;
+  height: @rasterSize * 6 + 1;
   border: 1px solid black;
   box-sizing: border-box
 }
 
-.tile {
-  padding-top: 12px;
+.tileInput {
   margin: 10px;
+  margin-top: 20px;
   height: 50px;
   font-size: 35px;
   text-align: center;
@@ -60,11 +52,16 @@ body {
 }
 
 .previewTile {
+  .tile {
+    transform: scale(1);
+  }
+  cursor: pointer;
   margin: 0px auto;
-  margin-top: 60px;
+  margin-top: 20px;
   width: 100px;
   height: 100px;
   display: block;
+  transform: scale(1);
 }
 
 .button {
@@ -82,8 +79,4 @@ body {
 .addTile {
   margin: 0 auto;
   margin-top: 20px;
-}
-
-.rasterTile {
-  height: @rasterSize;
 }
