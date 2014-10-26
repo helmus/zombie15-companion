@@ -4,33 +4,25 @@ angular.module('myApp').directive('tile', function () {
   return {
     restrict   : 'E',
     scope      : {
-      roads     : '=',
+      tile      : '=',
       edit      : '=',
       activeTile: '='
     },
     templateUrl: 'directives/tile/tile.html',
     link       : function ($scope, element) {
-      $scope.orientation = 0;
-      if (_.isArray($scope.roads)) {
-        $scope.roads = $scope.roads.concat(Array.apply(null, new Array(4 - $scope.roads.length))).map(function (a) {
-          return !!a;
-        });
+      if (_.isArray($scope.tile)) {
+        $scope.tile.roads = $scope.tile.roads
+          .concat(Array.apply(null, new Array(4 - $scope.rile.roads.length)))
+          .map(function (a) {
+            return !!a;
+          });
       }
-      $scope.rotate = function () {
-        if ($scope.activeTile.indexOf(true) == -1) {
-          $scope.roads = [];
-          return
-        }
-        if ($scope.roads && $scope.roads.length) {
-          if ($scope.roads.indexOf(true) == -1) {
-            $scope.roads = $scope.activeTile.slice();
-            $scope.orientation = 0;
-            return;
-          }
-          $scope.orientation = $scope.orientation + 1 % 4;
+      $scope.toggleTile = function () {
+        if ($scope.activeTile !== $scope.tile && !$scope.activeTile || !$scope.tile) {
+          $scope.tile = $scope.activeTile;
           return;
         }
-        $scope.roads = $scope.activeTile.slice();
+        $scope.tile.rotation = $scope.tile.rotation ? ($scope.tile.rotation + 1) % 4 : 1;
       };
     }
   };

@@ -16,23 +16,26 @@
 <div ng-controller="MainCtrl">
     <div class="rasterContainer">
         <div class="row" ng-repeat="row in rows track by $index">
-            <div class="column" ng-repeat="tile in row track by $index">
-                <tile ng-click="registerTile(tile.row, tile.column)" class="rasterTile" roads="tile.roads"
-                      active-tile='activeTileRoads'></tile>
+            <div class="column" ng-repeat="rasterTile in row track by $index">
+                <tile ng-click="registerTile(rasterTile)" class="rasterTile" tile="rasterTile.tile"
+                      active-tile='activeTile'></tile>
             </div>
         </div>
     </div>
     <div class="legend">
-        <input ng-keyup="$event.keyCode == 13 && add()"
-               ng-change="updatePreview()"
-               ng-model="activeTile"
+        <input ng-change="updatePreview()"
+               ng-model="activeTileId"
                maxlength="3" type="text" class="tileInput"/>
-        <tile roads="activeTileRoads" orientation="0" class="previewTile"></tile>
-        <button class="button addTile" ng-click="add()"> Add</button>
+        <tile tile="activeTile" class="previewTile"></tile>
+        <select class="scenario" ng-change="loadScenario()"
+                place
+                ng-model="selectedScenario"
+                ng-options="scenario as 'Scenario ' + scenario.id for scenario in scenarios">
+        </select>
     </div>
     <br>
     <br>
-    <textarea ng-model="tilesJson" class="state"></textarea>
+    <textarea ng-model="visualStateText" class="state"></textarea>
 
     <div>
         <button class="button" style="float:left;" ng-click="reload()"> R</button>
@@ -43,6 +46,7 @@
 <script src="controllers/MainCtrl.js"></script>
 <script src="directives/tile/tile.js"></script>
 <script src="services/tiles.js"></script>
+<script src="services/scenarios.js"></script>
 <script src="bower_components/lodash/dist/lodash.js"></script>
 </body>
 </html>

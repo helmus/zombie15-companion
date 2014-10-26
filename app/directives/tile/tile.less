@@ -2,7 +2,8 @@
 @tileSizeHalf : floor(@tileSize / 2);
 @tileBorder : 24px;
 @tileBorderHalf : floor(@tileBorder / 2);
-@roadColor: red;
+@zombieGreen: #1A5015;
+@roadColor: @zombieGreen;
 
 .tile {
   border: 1px solid black;
@@ -15,6 +16,13 @@
   padding: 0px;
   user-select: none;
   -webkit-user-select: none;
+
+  .tileId {
+    position: absolute;
+    font-size: 20px;
+    top: 8px;
+    left: 8px;
+  }
 
   .rotationDiv {
     transform-origin: 50px 50px;
