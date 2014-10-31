@@ -7,6 +7,10 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.10.1",
-    "less": "^1.7.5"
+    "less": "^1.7.5",
+    "bower": "1.3.x"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
   }
 }
