@@ -301,7 +301,7 @@ angular.module('myApp').factory('tiles', function () {
       ]
     },
     {
-      "id"   : "17ab",
+      "id"   : "17a",
       "roads": [
         false,
         false,
@@ -323,7 +323,7 @@ angular.module('myApp').factory('tiles', function () {
       "roads": [
         true,
         true,
-        false,
+        true,
         false
       ]
     },
@@ -457,7 +457,7 @@ angular.module('myApp').factory('tiles', function () {
       "id"   : "26a",
       "roads": [
         true,
-        true,
+        false,
         false,
         false
       ]

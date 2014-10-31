@@ -1,4 +1,4 @@
-angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenarios) {
+angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenarios, $timeout) {
   'use strict';
 
   var tilesById = _.indexBy(tiles, 'id');
@@ -22,6 +22,65 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
     }));
   };
 
+  $scope.clearTiles = function () {
+    $scope.rows.forEach(function (row) {
+      row.forEach(function (rasterTile) {
+        rasterTile.tile = null;
+      });
+    });
+  };
+
+  $scope.nextTile = function () {
+    var nextTile = $scope.selectedScenario.nextTiles.shift();
+    if (!nextTile) {
+      $scope.selectedScenario.nextTiles = $scope.selectedScenario.tiles.slice();
+      $scope.selectedScenario.tiles.length = 0;
+      $scope.clearTiles();
+      nextTile = $scope.selectedScenario.nextTiles.shift();
+    }
+    if ($scope.selectedScenario.tiles.length) {
+      var prevTile = $scope.selectedScenario.tiles[$scope.selectedScenario.tiles.length - 1];
+      prevTile.tile.active = false;
+    }
+    $scope.selectedScenario.tiles.push(nextTile);
+    $scope.rows[nextTile.row][nextTile.column].tile = nextTile.tile;
+    nextTile.tile.active = true;
+  };
+  var tileInput = $('.tileInput');
+  $scope.keypress = function (event) {
+    if (event.target === tileInput[0] || (event.charCode < 48 || event.charCode > 57)) {
+      return;
+    }
+    tileInput.val('').focus();
+  };
+
+  $scope.keyup = function (event) {
+    if (!scope.activeTileId){
+      return;
+    }
+    if (event.keyCode === 38) {
+      $scope.activeTileId = parseInt($scope.activeTileId, 10) + '' + 'a';
+    }else if(event.keyCode === 40){
+      $scope.activeTileId = parseInt($scope.activeTileId, 10) + '' + 'b';
+    }
+    $scope.updatePreview();
+  };
+
+  $scope.prevTile = function () {
+    var prevTile = $scope.selectedScenario.tiles.pop();
+    prevTile.tile.active = false;
+    if (!$scope.selectedScenario.tiles.length) {
+      $scope.selectedScenario.nextTiles.unshift(prevTile);
+      $scope.selectedScenario.tiles = $scope.selectedScenario.nextTiles.slice();
+      $scope.selectedScenario.nextTiles.length = 0;
+      $scope.loadScenario();
+      return;
+    }
+    $scope.selectedScenario.nextTiles.unshift(prevTile);
+    $scope.selectedScenario.tiles[$scope.selectedScenario.tiles.length - 1].tile.active = 1;
+    $scope.rows[prevTile.row][prevTile.column].tile = null;
+
+  };
 
   $scope.rows = _.range(0, 6).map(function (row) {
     return _.range(0, 9).map(function (column) {
@@ -39,10 +98,17 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
         rasterTile.tile = null;
       });
     });
-    $scope.selectedScenario.tiles.forEach(function (scenarioTile) {
-      $scope.rows[scenarioTile.row][scenarioTile.column].tile = scenarioTile.tile;
-    });
+    $scope.selectedScenario.tiles
+      .sort(function (a, b) {
+        return (parseInt(a.tile.id, 10) < parseInt(b.tile.id, 10)) ? -1 : 1;
+      }).forEach(function (scenarioTile) {
+        $scope.rows[scenarioTile.row][scenarioTile.column].tile = scenarioTile.tile;
+      });
+    if (!$scope.selectedScenario.nextTiles) {
+      $scope.selectedScenario.nextTiles = [];
+    }
   };
+
   $scope.loadScenario();
 
 
@@ -118,4 +184,15 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
     }
   };
 
+  $scope.screenToggle = '<-->';
+  $scope.hasFullScreen = 'webkitIsFullScreen' in document || 'mozRequestFullScreen' in document;
+  $scope.fullScreen = function () {
+    if (document.webkitIsFullScreen) {
+      $scope.screenToggle = '<-->';
+      document.webkitExitFullscreen();
+    } else {
+      $scope.screenToggle = '>--<';
+      document.documentElement.webkitRequestFullScreen();
+    }
+  };
 });

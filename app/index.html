@@ -12,16 +12,29 @@
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
 </head>
-<body ng-cloak ng-app="myApp">
-<div ng-controller="MainCtrl">
+<body ng-cloak ng-controller="MainCtrl" ng-keyup="keyup($event)" ng-keypress="keypress($event)" ng-app="myApp">
+<div >
     <div class="rasterContainer">
         <div class="row" ng-repeat="row in rows track by $index">
-            <div class="column" ng-repeat="rasterTile in row track by $index">
-                <tile ng-click="registerTile(rasterTile)" class="rasterTile" tile="rasterTile.tile"
+            <div  ng-class="{activeTile: rasterTile.tile.active}" class="column"
+                 ng-repeat="rasterTile in row track by $index">
+                <tile ng-click="registerTile(rasterTile)"
+                      class="rasterTile"
+                      tile="rasterTile.tile"
                       active-tile='activeTile'></tile>
             </div>
         </div>
     </div>
+    <div style="width: 50px;display: inline-block;vertical-align: top;">
+        <button class="button" style="display: inline-block" ng-click="prevTile()"> &lt; </button>
+        <br>
+        <br>
+        <button class="button" style="display: inline-block" ng-click="nextTile()"> &gt; </button>
+        <br>
+        <br>
+        <button ng-if="hasFullScreen" class="button" style="display: inline-block" ng-click="fullScreen()"> {{screenToggle}}</button>
+    </div>
+
     <div class="legend">
         <input ng-change="updatePreview()"
                ng-model="activeTileId"
@@ -31,11 +44,15 @@
                 ng-model="selectedScenario"
                 ng-options="scenario as 'Scenario ' + scenario.id for scenario in scenarios">
         </select>
+
         <div style="margin: 0 auto; margin-top: 10px; width: 110px;">
             <button class="button" style="display: inline-block" ng-click="saveScenario()"> Save</button>
             <button class="button" style="display: inline-block" ng-click="newScenario()"> New</button>
         </div>
     </div>
+    <br>
+    <br>
+
     <br>
     <br>
     <textarea ng-model="visualStateText" class="state"></textarea>

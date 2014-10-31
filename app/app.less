@@ -1,8 +1,10 @@
 @import "directives/tile/tile.less";
 
 body {
-  padding: 10px;
-  margin-top: 10px;
+  padding: 0px;
+  margin: 0px;
+  transform-origin: 0px 0px;
+  transform: scale(1);
 }
 
 @rasterSize: 60px;
@@ -80,6 +82,10 @@ body {
 .addTile {
   margin: 0 auto;
   margin-top: 20px;
+}
+
+.activeTile {
+  background-color: rgb(129, 255, 119);
 }
 
 .scenario {
