@@ -55,7 +55,7 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
   };
 
   $scope.keyup = function (event) {
-    if (!scope.activeTileId){
+    if (!$scope.activeTileId){
       return;
     }
     if (event.keyCode === 38) {
