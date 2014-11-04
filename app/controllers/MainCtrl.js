@@ -6,6 +6,30 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
   $scope.scenarios = scenarios;
   $scope.selectedScenario = scenarios[0];
 
+  var setScale = _.debounce(function () {
+    $scope.$apply(function () {
+      var windowHeight = $(window).height();
+      var rasterHeight = 361;
+      $scope.scaleFactor = windowHeight / rasterHeight;
+    });
+  }, 100);
+
+  var $rasterContainer = $('.rasterContainer');
+
+
+  //$(window).on('resize', setScale);
+  //setScale();
+  $scope.navForward = true;
+
+  $scope.tileNav = function () {
+    if ($scope.navForward) {
+      $scope.nextTile();
+    } else {
+      $scope.prevTile();
+    }
+  };
+
+
   $scope.$watch('selectedScenario', function () {
     $scope.loadScenario();
   });
@@ -55,12 +79,12 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
   };
 
   $scope.keyup = function (event) {
-    if (!$scope.activeTileId){
+    if (!$scope.activeTileId) {
       return;
     }
     if (event.keyCode === 38) {
       $scope.activeTileId = parseInt($scope.activeTileId, 10) + '' + 'a';
-    }else if(event.keyCode === 40){
+    } else if (event.keyCode === 40) {
       $scope.activeTileId = parseInt($scope.activeTileId, 10) + '' + 'b';
     }
     $scope.updatePreview();

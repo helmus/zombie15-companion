@@ -5,18 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Zombie 15 map generator</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=0.1, maximum-scale=10.0">
     <link rel="stylesheet" href="bower_components/normalize.css/normalize.css">
     <link rel="stylesheet" href="app.css">
 
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-touch/angular-touch.js"></script>
 </head>
 <body ng-cloak ng-controller="MainCtrl" ng-keyup="keyup($event)" ng-keypress="keypress($event)" ng-app="myApp">
-<div >
-    <div class="rasterContainer">
+<div ng-style="{transform: 'scale(' + scaleFactor + ')'}" style="transform-origin: 0px 0px">
+    <div ng-swipe-left="navForward=true" ng-swipe-right="navForward=false" ng-click="tileNav()" class="rasterContainer">
         <div class="row" ng-repeat="row in rows track by $index">
-            <div  ng-class="{activeTile: rasterTile.tile.active}" class="column"
+            <div ng-class="{activeTile: rasterTile.tile.active}" class="column"
                  ng-repeat="rasterTile in row track by $index">
                 <tile ng-click="registerTile(rasterTile)"
                       class="rasterTile"
@@ -32,7 +34,9 @@
         <button class="button" style="display: inline-block" ng-click="nextTile()"> &gt; </button>
         <br>
         <br>
-        <button ng-if="hasFullScreen" class="button" style="display: inline-block" ng-click="fullScreen()"> {{screenToggle}}</button>
+        <button ng-if="hasFullScreen" class="button" style="display: inline-block" ng-click="fullScreen()">
+            {{screenToggle}}
+        </button>
     </div>
 
     <div class="legend">
@@ -51,11 +55,7 @@
         </div>
     </div>
     <br>
-    <br>
-
-    <br>
-    <br>
-    <textarea ng-model="visualStateText" class="state"></textarea>
+    <textarea ng-hide="true" ng-model="visualStateText" class="state"></textarea>
 </div>
 <script src="app.js"></script>
 <script src="controllers/MainCtrl.js"></script>

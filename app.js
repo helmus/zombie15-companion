@@ -17,4 +17,4 @@ var options = {
 };
 
 app.use(express.static(__dirname + '/app', options));
-app.listen(process.env.PORT || 3006);
+app.listen(process.env.PORT || 3007);
