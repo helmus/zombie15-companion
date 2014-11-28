@@ -55,15 +55,17 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
 
   $scope.help = function () {
       alert('' +
-      'This app allows you to set up your zombie 15 map faster. ' +
-      'The only requirement is that the tiles are sorted by number. \n' +
+      'This app allows you to set up your zombie 15 map faster.\n' +
       '\n' +
-      '1. Select your scenario from the drop down\n' +
-      '2. Tap the screen\n' +
-      '3. Put that tile on the table\n' +
-      '3. Go to step 2, repeat until done\n' +
+      '1. Put ALL tiles in 1 pile sorted with number 1 on top. \n' +
+      '2. Select your scenario from the drop down\n' +
+      '3. Tap the screen\n' +
+      '4. Find your tile, discard any tiles that come before it\n' +
+      '5. Put the tile on the board, use the grid as a guide\n' +
+      '6. Go to step 3, repeat until done\n' +
       '\n' +
-      'You can also use the buttons to go backward, forward or switch to full screen.');
+      'You can also use the buttons to go backward, forward or switch to full screen ( chrome only ). \n' +
+      'A modern browser is required for this app to work.');
   };
 
   $scope.nextTile = function () {
