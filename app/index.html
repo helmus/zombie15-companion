@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Zombie 15 map generator</title>
+    <title>Zombie 15 Map Helper</title>
     <meta name="description" content="">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=0.1, maximum-scale=10.0">
@@ -13,10 +13,20 @@
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-touch/angular-touch.js"></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-57196447-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
 </head>
 <body ng-cloak ng-controller="MainCtrl" ng-keyup="keyup($event)" ng-keypress="keypress($event)" ng-app="myApp">
 <div ng-style="{transform: 'scale(' + scaleFactor + ')'}" style="transform-origin: 0px 0px">
-    <div ng-swipe-left="navForward=true" ng-swipe-right="navForward=false" ng-click="tileNav()" class="rasterContainer">
+    <div ng-click="tileNav()" class="rasterContainer">
         <div class="row" ng-repeat="row in rows track by $index">
             <div ng-class="{activeTile: rasterTile.tile.active}" class="column"
                  ng-repeat="rasterTile in row track by $index">
@@ -34,12 +44,18 @@
         <button class="button" style="display: inline-block" ng-click="nextTile()"> &gt; </button>
         <br>
         <br>
+        <button class="button" style="display: inline-block" ng-click="help()"> ? </button>
+        <br>
+        <br>
         <button ng-if="hasFullScreen" class="button" style="display: inline-block" ng-click="fullScreen()">
             {{screenToggle}}
         </button>
+    <select class="scenario"
+            ng-model="selectedScenario"
+            ng-options="scenario as 'Scenario ' + scenario.id for scenario in scenarios">
+    </select>
     </div>
-
-    <div class="legend">
+    <div class="legend" style="display:none;" >
         <input ng-change="updatePreview()"
                ng-model="activeTileId"
                maxlength="3" type="text" class="tileInput"/>

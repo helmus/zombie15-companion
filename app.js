@@ -23,3 +23,7 @@ app.use(compression({
 
 app.use(express.static(__dirname + '/app', options));
 app.listen(process.env.PORT || 3007);
+
+app.get('/', function (req, res) {
+  res.send('oh hi');
+});

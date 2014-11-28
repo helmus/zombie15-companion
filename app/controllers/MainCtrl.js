@@ -29,7 +29,6 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
     }
   };
 
-
   $scope.$watch('selectedScenario', function () {
     $scope.loadScenario();
   });
@@ -52,6 +51,19 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
         rasterTile.tile = null;
       });
     });
+  };
+
+  $scope.help = function () {
+      alert('' +
+      'This app allows you to set up your zombie 15 map faster. ' +
+      'The only requirement is that the tiles are sorted by number. \n' +
+      '\n' +
+      '1. Select your scenario from the drop down\n' +
+      '2. Tap the screen\n' +
+      '3. Put that tile on the table\n' +
+      '3. Go to step 2, repeat until done\n' +
+      '\n' +
+      'You can also use the buttons to go backward, forward or switch to full screen.');
   };
 
   $scope.nextTile = function () {
