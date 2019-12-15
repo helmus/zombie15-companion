@@ -25,7 +25,7 @@
     </script>
 </head>
 <body ng-cloak ng-controller="MainCtrl" ng-keyup="keyup($event)" ng-keypress="keypress($event)" ng-app="myApp">
-<div ng-style="{transform: 'scale(' + scaleFactor + ')'}" style="transform-origin: 0px 0px">
+<div class="parentContainer" ng-style="{transform: 'scale(' + scaleFactor + ')'}" >
     <div ng-click="tileNav()" class="rasterContainer">
         <div class="row" ng-repeat="row in rows track by $index">
             <div ng-class="{activeTile: rasterTile.tile.active}" class="column"
