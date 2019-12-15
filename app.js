@@ -7,10 +7,9 @@ var app = express();
 
 var options = {
   dotfiles  : 'ignore',
-  etag      : false,
+  etag      : true,
   extensions: ['htm', 'html'],
   index     : false,
-  maxAge    : '1d',
   redirect  : false,
   setHeaders: function (res, path, stat) {
     res.set('x-timestamp', Date.now());
@@ -25,5 +24,5 @@ app.use(express.static(__dirname + '/app', options));
 app.listen(process.env.PORT || 3007);
 
 app.get('/', function (req, res) {
-  res.send('oh hi');
+  res.redirect('index.html');
 });
