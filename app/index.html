@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Zombie 15 Map Helper</title>
+    <title>Zombie 15 App</title>
     <meta name="description" content="">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=0.1, maximum-scale=10.0">
@@ -14,10 +14,17 @@
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-touch/angular-touch.js"></script>
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
         ga('create', 'UA-57196447-1', 'auto');
         ga('send', 'pageview');
@@ -25,7 +32,25 @@
     </script>
 </head>
 <body ng-cloak ng-controller="MainCtrl" ng-keyup="keyup($event)" ng-keypress="keypress($event)" ng-app="myApp">
-<div class="parentContainer" ng-style="{transform: 'scale(' + scaleFactor + ')'}" >
+<div class="parentContainer" ng-style="{transform: 'scale(' + scaleFactor + ')'}">
+    <div style="width: 50px;display: inline-block;vertical-align: top;">
+        <button class="button" style="display: inline-block" ng-click=""> Reset</button>
+        <br>
+        <br>
+
+        <button class="button" style="display: inline-block" ng-click="play60()"> 60s</button>
+        <br>
+        <br>
+        <button class="button" style="display: inline-block" ng-click="play40()"> 40s</button>
+        <br>
+        <br>
+        <select class="soundTrack" ng-model="selectedSoundTrackStyle">
+            <option value="regular" ng-selected="selected">Regular Soundtrack</option>
+            <option value="bonus" >Bonus Soundtrack</option>
+        </select>
+
+    </div>
+
     <div ng-click="tileNav()" class="rasterContainer">
         <div class="row" ng-repeat="row in rows track by $index">
             <div ng-class="{activeTile: rasterTile.tile.active}" class="column"
@@ -38,24 +63,24 @@
         </div>
     </div>
     <div style="width: 50px;display: inline-block;vertical-align: top;">
-        <button class="button" style="display: inline-block" ng-click="prevTile()"> &lt; </button>
+        <button class="button" style="display: inline-block" ng-click="prevTile()"> &lt;</button>
         <br>
         <br>
-        <button class="button" style="display: inline-block" ng-click="nextTile()"> &gt; </button>
+        <button class="button" style="display: inline-block" ng-click="nextTile()"> &gt;</button>
         <br>
         <br>
-        <button class="button" style="display: inline-block" ng-click="help()"> ? </button>
+        <button class="button" style="display: inline-block" ng-click="help()"> ?</button>
         <br>
         <br>
         <button ng-if="hasFullScreen" class="button" style="display: inline-block" ng-click="fullScreen()">
             {{screenToggle}}
         </button>
-    <select class="scenario"
-            ng-model="selectedScenario"
-            ng-options="scenario as 'Scenario ' + scenario.id for scenario in scenarios">
-    </select>
+        <select class="scenario"
+                ng-model="selectedScenario"
+                ng-options="scenario as 'Scenario ' + scenario.id for scenario in scenarios">
+        </select>
     </div>
-    <div class="legend" style="display:none;" >
+    <div class="legend" style="display:none;">
         <input ng-change="updatePreview()"
                ng-model="activeTileId"
                maxlength="3" type="text" class="tileInput"/>

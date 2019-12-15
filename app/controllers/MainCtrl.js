@@ -2,8 +2,23 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
   'use strict';
 
   var tilesById = _.keyBy(tiles, 'id');
+  const soundTrackTypes = {
+    regular: "regular",
+    bonus  : "bonus"
+  };
+  const soundTracks = {
+    'regular': {
+      '40': 'audio/ost-zombie-15-40sec.mp3',
+      '60': 'audio/ost-zombie-15-60sec.mp3'
+    },
+    'bonus'  : {
+      '40': 'audio/bonus_ost-zombie-15-40sec.mp3',
+      '60': 'audio/bonus_ost-zombie-15-60sec.mp3'
+    }
+  };
 
   $scope.scenarios = scenarios;
+  $scope.selectedSoundTrackStyle = soundTrackTypes.regular;
   $scope.selectedScenario = scenarios[0];
 
   var setScale = _.debounce(function () {
@@ -54,7 +69,7 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
   };
 
   $scope.help = function () {
-      alert('' +
+    alert('' +
       'This app allows you to set up your zombie 15 map faster.\n' +
       '\n' +
       '1. Put ALL tiles in 1 pile sorted with number 1 on top. \n' +
@@ -104,6 +119,20 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
     $scope.updatePreview();
   };
 
+  var currentlyPlaying = null;
+  $scope.play = function (difficulty) {
+    const tracks = soundTracks[$scope.selectedSoundTrackStyle];
+    const audioElement = new Audio(tracks[difficulty]);
+    if (currentlyPlaying) {
+      currentlyPlaying.pause();
+    }
+    audioElement.play();
+    currentlyPlaying = audioElement;
+  };
+
+  $scope.play60 = $scope.play.bind(null, "60");
+  $scope.play40 = $scope.play.bind(null, "40");
+
   $scope.prevTile = function () {
     var prevTile = $scope.selectedScenario.tiles.pop();
     prevTile.tile.active = false;
@@ -140,8 +169,8 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
       .sort(function (a, b) {
         return (parseInt(a.tile.id, 10) < parseInt(b.tile.id, 10)) ? -1 : 1;
       }).forEach(function (scenarioTile) {
-        $scope.rows[scenarioTile.row][scenarioTile.column].tile = scenarioTile.tile;
-      });
+      $scope.rows[scenarioTile.row][scenarioTile.column].tile = scenarioTile.tile;
+    });
     if (!$scope.selectedScenario.nextTiles) {
       $scope.selectedScenario.nextTiles = [];
     }
@@ -202,7 +231,7 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
       return _.find(row, function (rowTile) {
         if (rowTile.tile && parseInt(rowTile.tile.id, 10) === parseInt(rasterTile.tile.id, 10) &&
           (rowTile.column !== rasterTile.column ||
-          rowTile.row !== rasterTile.row)) {
+            rowTile.row !== rasterTile.row)) {
           rowTile.tile = null;
           return true;
         }

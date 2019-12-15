@@ -10,5 +10,6 @@
     "module": false,
     "inject": false
   },
-  "node": true
+  "node": true,
+  "esversion": 6
 }

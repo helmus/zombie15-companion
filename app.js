@@ -11,9 +11,6 @@ var options = {
   extensions: ['htm', 'html'],
   index     : false,
   redirect  : false,
-  setHeaders: function (res, path, stat) {
-    res.set('x-timestamp', Date.now());
-  }
 };
 
 app.use(compression({
