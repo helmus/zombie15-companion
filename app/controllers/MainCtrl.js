@@ -1,7 +1,7 @@
 angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenarios, $timeout) {
   'use strict';
 
-  var tilesById = _.indexBy(tiles, 'id');
+  var tilesById = _.keyBy(tiles, 'id');
 
   $scope.scenarios = scenarios;
   $scope.selectedScenario = scenarios[0];
