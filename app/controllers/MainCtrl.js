@@ -79,6 +79,8 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
 
   $scope.help = function () {
     alert('' +
+      'Use Safari on IOS devices for full help !\n' +
+      '\n' +
       'This app allows you to set up your zombie 15 map faster.\n' +
       '\n' +
       '1. Put ALL tiles in 1 pile sorted with number 1 on top. \n' +
@@ -87,6 +89,9 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
       '4. Find your tile, discard any tiles that come before it\n' +
       '5. Put the tile on the board, use the grid as a guide\n' +
       '6. Go to step 3, repeat until done\n' +
+      '7. You can play the soundtrack by clicking the 60s/40s buttons.\n' +
+      '   The screen will flash red on each zombie event. \n' +
+      '   40s is more difficult. \n' +
       '\n' +
       'You can also use the buttons to go backward, forward or switch to full screen ( chrome only ). \n' +
       'A modern browser is required for this app to work.'
