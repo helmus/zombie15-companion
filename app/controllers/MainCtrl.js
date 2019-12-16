@@ -8,12 +8,12 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
   };
   const soundTracks = {
     'regular': {
-      '40': 'audio/ost-zombie-15-40sec.mp3',
-      '60': 'audio/ost-zombie-15-60sec.mp3'
+      '40': new Audio('audio/ost-zombie-15-40sec.mp3'),
+      '60': new Audio('audio/ost-zombie-15-60sec.mp3')
     },
     'bonus'  : {
-      '40': 'audio/bonus_ost-zombie-15-40sec.mp3',
-      '60': 'audio/bonus_ost-zombie-15-60sec.mp3'
+      '40': new Audio('audio/bonus_ost-zombie-15-40sec.mp3'),
+      '60': new Audio('audio/bonus_ost-zombie-15-60sec.mp3')
     }
   };
 
@@ -21,6 +21,8 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
     "40": "40s",
     "60": "60s"
   };
+
+
 
   $scope.$watch("progress", function () {
     console.log("progress change");
@@ -164,7 +166,7 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
     }
 
     const tracks = soundTracks[$scope.selectedSoundTrackStyle];
-    const audioElement = new Audio(tracks[difficulty]);
+    const audioElement = tracks[difficulty];
     currentlyPlaying = audioElement;
     currentDifficulty = difficulty;
     audioElement.play();
