@@ -1,4 +1,4 @@
-angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenarios, $timeout) {
+angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenarios, $interval) {
   'use strict';
 
   var tilesById = _.keyBy(tiles, 'id');
@@ -16,6 +16,15 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
       '60': 'audio/bonus_ost-zombie-15-60sec.mp3'
     }
   };
+
+  $scope.progress = {
+    "40": "40s",
+    "60": "60s"
+  };
+
+  $scope.$watch("progress", function () {
+    console.log("progress change");
+  }, true);
 
   $scope.scenarios = scenarios;
   $scope.selectedSoundTrackStyle = soundTrackTypes.regular;
@@ -80,7 +89,8 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
       '6. Go to step 3, repeat until done\n' +
       '\n' +
       'You can also use the buttons to go backward, forward or switch to full screen ( chrome only ). \n' +
-      'A modern browser is required for this app to work.');
+      'A modern browser is required for this app to work.'
+    );
   };
 
   $scope.nextTile = function () {
@@ -120,15 +130,60 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
   };
 
   var currentlyPlaying = null;
+  var currentRef = null;
+  var currentDifficulty = null;
+
+  $scope.reset = function () {
+    if (!currentlyPlaying) {
+      return;
+    }
+    currentlyPlaying.pause();
+    $interval.cancel(currentRef);
+    currentlyPlaying = null;
+    currentRef = null;
+    currentDifficulty = null;
+
+    $scope.progress = {
+      "40": "40s",
+      "60": "60s"
+    };
+  };
+
   $scope.play = function (difficulty) {
+    if (currentDifficulty !== difficulty) {
+      $scope.reset();
+    }
+
+    if (currentlyPlaying) {
+      if (currentlyPlaying.paused) {
+        currentlyPlaying.play();
+      } else {
+        currentlyPlaying.pause();
+      }
+      return;
+    }
+
     const tracks = soundTracks[$scope.selectedSoundTrackStyle];
     const audioElement = new Audio(tracks[difficulty]);
-    if (currentlyPlaying) {
-      currentlyPlaying.pause();
-    }
-    audioElement.play();
     currentlyPlaying = audioElement;
+    currentDifficulty = difficulty;
+    audioElement.play();
+
+    currentRef = $interval(function () {
+      const zombieShowTime = 3;
+      const time = Math.floor(currentlyPlaying.currentTime)
+      const leftOVer = audioElement.duration - time;
+
+      $scope.progress[difficulty] = Math.floor(leftOVer / 60) + ":" + Math.floor(leftOVer % 60);
+
+      if ((time > 5 && _.inRange(time % difficulty, 0, zombieShowTime + 1))) {
+        document.bgColor = "red";
+      } else {
+        document.bgColor = "white";
+      }
+    }, 50);
   };
+
 
   $scope.play60 = $scope.play.bind(null, "60");
   $scope.play40 = $scope.play.bind(null, "40");

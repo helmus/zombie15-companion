@@ -34,18 +34,17 @@
 <body ng-cloak ng-controller="MainCtrl" ng-keyup="keyup($event)" ng-keypress="keypress($event)" ng-app="myApp">
 <div class="parentContainer" ng-style="{transform: 'scale(' + scaleFactor + ')'}">
     <div style="width: 50px;display: inline-block;vertical-align: top;">
-        <button class="button" style="display: inline-block" ng-click=""> Reset</button>
+        <button class="button" style="display: inline-block" ng-click="reset()"> Reset</button>
         <br>
         <br>
-
-        <button class="button" style="display: inline-block" ng-click="play60()"> 60s</button>
+        <button class="button" style="display: inline-block" ng-bind="progress[60]" ng-click="play60()"> </button>
         <br>
         <br>
-        <button class="button" style="display: inline-block" ng-click="play40()"> 40s</button>
+        <button class="button" style="display: inline-block" ng-bind="progress[40]" ng-click="play40()"> </button>
         <br>
         <br>
         <select class="soundTrack" ng-model="selectedSoundTrackStyle">
-            <option value="regular" ng-selected="selected">Regular Soundtrack</option>
+            <option value="regular" >Regular Soundtrack</option>
             <option value="bonus" >Bonus Soundtrack</option>
         </select>
 
