@@ -8,8 +8,8 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
   };
   const soundTracks = {
     'regular': {
-      '40': new Audio('audio/ost-zombie-15-40sec.mp3?' + Date.now()),
-      '60': new Audio('audio/ost-zombie-15-60sec.mp3?' + Date.now())
+      '40': new Audio('audio/ost-zombie-15-40sec.mp3'),
+      '60': new Audio('audio/ost-zombie-15-60sec.mp3')
     },
     'bonus'  : {
       '40': new Audio('audio/bonus_ost-zombie-15-40sec.mp3'),
