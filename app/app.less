@@ -4,8 +4,15 @@ body {
   padding: 0px;
   margin: 0px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  transform: scale(1);
   transform-origin: 50% 0;
+}
+
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px) {
+  body {
+    transform: scale(0.7);
+  }
 }
 
 div {
@@ -109,7 +116,7 @@ div {
 }
 
 .scenario {
-  width: 120px;
+  width: 130px;
   height: 40px;
   display: block;
   margin: 0 auto;
@@ -117,7 +124,7 @@ div {
 }
 
 .soundTrack {
-  width: 170px;
+  width: 180px;
   height: 40px;
   display: block;
   margin: 0 auto;
