@@ -138,6 +138,7 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
       return;
     }
     currentlyPlaying.pause();
+    currentlyPlaying.currentTime = 0;
     $interval.cancel(currentRef);
     currentlyPlaying = null;
     currentRef = null;
