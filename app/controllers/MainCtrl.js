@@ -171,7 +171,7 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
     audioElement.play();
 
     currentRef = $interval(function () {
-      const zombieShowTime = 3;
+      const zombieShowTime = 4;
       const time = Math.floor(currentlyPlaying.currentTime)
       const leftOVer = audioElement.duration - time;
 
