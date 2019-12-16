@@ -8,8 +8,8 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
   };
   const soundTracks = {
     'regular': {
-      '40': new Audio('audio/ost-zombie-15-40sec.mp3'),
-      '60': new Audio('audio/ost-zombie-15-60sec.mp3')
+      '40': new Audio('audio/ost-zombie-15-40sec.mp3?' + Date.now()),
+      '60': new Audio('audio/ost-zombie-15-60sec.mp3?' + Date.now())
     },
     'bonus'  : {
       '40': new Audio('audio/bonus_ost-zombie-15-40sec.mp3'),
@@ -22,11 +22,9 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
     "60": "60s"
   };
 
-
-
-  $scope.$watch("progress", function () {
-    console.log("progress change");
-  }, true);
+  Object.values(soundTracks[soundTrackTypes.regular]).forEach(function (file) {
+    file.load();
+  });
 
   $scope.scenarios = scenarios;
   $scope.selectedSoundTrackStyle = soundTrackTypes.regular;
