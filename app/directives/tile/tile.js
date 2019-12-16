@@ -18,6 +18,7 @@ angular.module('myApp').directive('tile', function () {
           });
       }
       $scope.toggleTile = function () {
+        return;
         if ($scope.activeTile !== $scope.tile && (!$scope.activeTile || !$scope.tile)) {
           $scope.tile = $scope.activeTile;
           return;

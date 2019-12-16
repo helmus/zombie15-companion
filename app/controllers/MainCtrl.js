@@ -302,6 +302,7 @@ angular.module('myApp').controller('MainCtrl', function ($scope, tiles, scenario
   }, true);
 
   $scope.registerTile = function (rasterTile) {
+    return;
     if (rasterTile.tile) {
       removeDuplicate(rasterTile);
     }
